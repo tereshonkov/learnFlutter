@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ListTileWidg extends StatelessWidget {
-  const ListTileWidg({super.key, required this.titleName});
+  const ListTileWidg({super.key, required this.titleName, required this.body});
 
   final String titleName;
+  final String body;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ListTileWidg extends StatelessWidget {
         style: theme.textTheme.bodyMedium, //Использование темы из контекста
       ),
       subtitle: Text(
-        '2000\$',
+        body ,
         style: theme.textTheme.labelSmall,
       ), //Пример текста с использованием темы из контекста
       onTap: () {

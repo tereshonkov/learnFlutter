@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_project/repositories/posts/models/item_model.dart';
+import 'package:test_project/repositories/posts/posts_repository.dart';
 import '../widgets/widgets.dart';
 
 class TestPageList extends StatefulWidget {
@@ -11,6 +13,9 @@ class TestPageList extends StatefulWidget {
 }
 
 class _TestPageListState extends State<TestPageList> {
+
+ List<PostItem>? _posts;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(
@@ -28,15 +33,24 @@ class _TestPageListState extends State<TestPageList> {
         ), //Использование темы из контекста
       ),
       body: ListView.separated(
-        itemCount: 10,
+        itemCount: _posts?.length ?? 10,
         separatorBuilder: (context, index) => Divider(
           color: theme.dividerTheme.color,
         ), //Разделитель между элементами списка
         itemBuilder: (context, i) {
-          final titleName = 'Hello World $i'; //Пример динамического текста
-          return ListTileWidg(titleName: titleName);
+          final titleName = _posts?[i].title ?? 'Hello World $i'; //Пример динамического текста
+          final body = _posts?[i].body ?? 'Default body text';
+          return ListTileWidg(titleName: titleName, body: body,);
         },
       ),
+        floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.download),
+        onPressed: () async {
+         _posts = await PostsRepository().getPosts();
+         setState(() {
+         });
+        },
+      )
     );
   }
 }
