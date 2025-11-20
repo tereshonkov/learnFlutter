@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:test_project/repositories/abstract_posts_repository.dart';
 import 'package:test_project/repositories/posts/models/item_model.dart';
-import 'package:test_project/repositories/posts/posts_repository.dart';
 import '../widgets/widgets.dart';
 
 class TestPageList extends StatefulWidget {
@@ -46,7 +47,7 @@ class _TestPageListState extends State<TestPageList> {
         floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.download),
         onPressed: () async {
-         _posts = await PostsRepository().getPosts();
+         _posts = await GetIt.I<AbstractPostsRepository>().fetchPosts();
          setState(() {
          });
         },
